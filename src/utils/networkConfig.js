@@ -47,12 +47,11 @@ class NetworkConfig {
         };
 
         if (isHttps) {
-            config.rejectUnauthorized = false;
-            config.secureProtocol = 'TLSv1_2_method';
+            config.rejectUnauthorized = true;
+            config.minVersion = 'TLSv1.2';
 
             // 构建版本特定的SSL配置
             if (!this.isDev) {
-                config.checkServerIdentity = () => undefined;
                 try {
                     config.secureOptions = require('constants').SSL_OP_NO_TLSv1 | require('constants').SSL_OP_NO_TLSv1_1;
                 } catch (e) {
@@ -217,7 +216,7 @@ class NetworkConfig {
         const version = require('../../package.json').version;
         const platform = this.platform;
         const nodeVersion = process.version;
-        
+
         return `MultiSiteLatencyTool/${version} (${platform}; Node.js ${nodeVersion})`;
     }
 
@@ -254,4 +253,4 @@ class NetworkConfig {
     }
 }
 
-module.exports = new NetworkConfig(); 
+module.exports = new NetworkConfig();

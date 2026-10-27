@@ -24,17 +24,20 @@
 ### 快速开始
 
 1. **克隆项目**
+
    ```bash
    git clone https://gitee.com/Snake-Konginchrist/MultiSiteLatencyTool.git
    cd MultiSiteLatencyTool
    ```
 
 2. **安装依赖**
+
    ```bash
    npm install
    ```
 
 3. **配置环境变量**
+
    ```bash
    # 创建 .env 文件
    cp .env.example .env
@@ -44,6 +47,7 @@
    ```
 
 4. **启动开发服务器**
+
    ```bash
    # 使用npm命令
    npm run electron:dev
@@ -67,7 +71,7 @@
 
 ### 目录结构
 
-```
+```markdown
 MultiSiteLatencyTool/
 ├── src/                    # 源代码目录
 │   ├── components/         # Vue组件
@@ -99,18 +103,21 @@ MultiSiteLatencyTool/
 ### 架构设计
 
 #### 1. 主进程 (main.js)
+
 - 负责创建和管理Electron窗口
 - 处理IPC通信
 - 执行系统级网络命令（ping、traceroute等）
 - 管理应用生命周期
 
 #### 2. 渲染进程 (Vue应用)
+
 - 用户界面展示
 - 用户交互处理
 - 数据展示和管理
 - 与主进程通信
 
 #### 3. 服务层
+
 - **IP2Location服务**: 处理IP地理位置查询
 - **网络服务**: 封装各种网络测试功能
 - **存储服务**: 管理本地数据存储
@@ -120,12 +127,14 @@ MultiSiteLatencyTool/
 ### 1. 添加新功能
 
 #### 步骤1: 创建视图组件
+
 ```bash
 # 在 src/views/ 目录下创建新组件
 touch src/views/NewFeatureView.vue
 ```
 
 #### 步骤2: 配置路由
+
 ```javascript
 // src/router/index.js
 {
@@ -136,6 +145,7 @@ touch src/views/NewFeatureView.vue
 ```
 
 #### 步骤3: 添加导航菜单
+
 ```vue
 <!-- src/App.vue -->
 <el-menu-item index="/new-feature">
@@ -145,6 +155,7 @@ touch src/views/NewFeatureView.vue
 ```
 
 #### 步骤4: 实现业务逻辑
+
 ```javascript
 // src/services/newFeature.js
 class NewFeatureService {
@@ -254,7 +265,7 @@ async function performNetworkTest(host, options = {}) {
 
 ### 1. 开发者工具
 
-- **快捷键**: 
+- **快捷键**:
   - macOS: `Command + Shift + I`
   - Windows/Linux: `Ctrl + Shift + I`
 
@@ -299,6 +310,7 @@ axios.interceptors.response.use(
 ### 5. 常见问题调试
 
 #### 问题1: Electron窗口不显示
+
 ```javascript
 // 检查main.js中的窗口创建逻辑
 // 确保开发模式下正确加载URL
@@ -310,6 +322,7 @@ if (isDev) {
 ```
 
 #### 问题2: IPC通信失败
+
 ```javascript
 // 确保主进程中注册了IPC处理程序
 ipcMain.handle('test-function', async (event, data) => {
@@ -368,6 +381,7 @@ npm run dist:linux   # Linux
 ### 发布流程
 
 1. **更新版本号**
+
    ```bash
    npm version patch  # 补丁版本
    npm version minor  # 次要版本
@@ -375,6 +389,7 @@ npm run dist:linux   # Linux
    ```
 
 2. **构建应用**
+
    ```bash
    npm run electron:build
    ```
@@ -384,6 +399,7 @@ npm run dist:linux   # Linux
    - 验证所有功能正常工作
 
 4. **发布到仓库**
+
    ```bash
    git add .
    git commit -m "Release v1.0.0"
@@ -396,6 +412,7 @@ npm run dist:linux   # Linux
 ### Q1: 如何添加新的网络测试功能？
 
 A: 按照以下步骤：
+
 1. 在 `src/services/network.js` 中添加新的测试方法
 2. 在 `main.js` 中添加对应的IPC处理程序
 3. 创建新的视图组件
@@ -403,7 +420,8 @@ A: 按照以下步骤：
 
 ### Q2: 如何修改UI样式？
 
-A: 
+A:
+
 1. 对于全局样式，修改 `src/App.vue` 中的样式
 2. 对于组件样式，在对应组件的 `<style scoped>` 中修改
 3. 使用Element Plus的主题定制功能
@@ -411,6 +429,7 @@ A:
 ### Q3: 如何添加新的API服务？
 
 A:
+
 1. 在 `src/services/` 目录下创建新的服务文件
 2. 使用axios进行HTTP请求
 3. 在组件中导入并使用服务
@@ -418,6 +437,7 @@ A:
 ### Q4: 如何处理跨平台兼容性？
 
 A:
+
 1. 使用 `process.platform` 检测操作系统
 2. 为不同平台编写不同的命令
 3. 在网络服务中处理平台差异
@@ -425,6 +445,7 @@ A:
 ### Q5: 如何优化应用性能？
 
 A:
+
 1. 使用Vue的懒加载路由
 2. 避免在组件中进行重复的网络请求
 3. 使用防抖和节流优化用户交互
@@ -446,4 +467,4 @@ A:
 4. 推送到分支
 5. 创建 Pull Request
 
-欢迎提交 Issue 和 Pull Request！ 
+欢迎提交 Issue 和 Pull Request！

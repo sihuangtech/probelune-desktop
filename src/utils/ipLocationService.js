@@ -76,10 +76,10 @@ class IpLocationService {
             },
             'ipinfo': {
                 name: 'ipinfo',
-                getCurrentIpUrl: (token) => token 
+                getCurrentIpUrl: (token) => token
                     ? `https://ipinfo.io/json?token=${token}`
                     : `https://ipinfo.io/json`,
-                getIpUrl: (ip, token) => token 
+                getIpUrl: (ip, token) => token
                     ? `https://ipinfo.io/${ip}?token=${token}`
                     : `https://ipinfo.io/${ip}/json`,
                 parseResponse: (data) => {
@@ -106,6 +106,7 @@ class IpLocationService {
      * @returns {Promise} 查询结果
      */
     async lookup(ip, settings = {}) {
+        settings = settings || {};
         try {
             const defaultSettings = {
                 ipLookupService: 'auto',
@@ -115,7 +116,7 @@ class IpLocationService {
             };
 
             const userSettings = { ...defaultSettings, ...settings };
-            
+
             if (ip === 'current') {
                 return await this._getCurrentIpLocation(userSettings);
             } else {
@@ -134,21 +135,21 @@ class IpLocationService {
      */
     async _getCurrentIpLocation(settings) {
         console.log('检测到查询当前IP请求，正在获取当前IP...');
-        
+
         const servicesToTry = this._getServicesToTry(settings, true);
-        
+
         for (const serviceName of servicesToTry) {
             const service = this.services[serviceName];
             if (!service) continue;
 
             try {
                 console.log(`尝试使用 ${service.name} 查询当前IP和地理位置...`);
-                
+
                 const url = this._getServiceUrl(service, '', settings, true);
                 const result = await this._queryService(url, service, settings.ipLookupTimeout);
-                
+
                 console.log(`成功从 ${service.name} 获取到当前IP信息:`, result);
-                
+
                 return {
                     success: true,
                     data: {
@@ -165,7 +166,7 @@ class IpLocationService {
                 continue;
             }
         }
-        
+
         throw new Error('所有IP查询服务都不可用');
     }
 
@@ -177,19 +178,19 @@ class IpLocationService {
      */
     async _getIpLocation(ip, settings) {
         const servicesToTry = this._getServicesToTry(settings, false);
-        
+
         for (const serviceName of servicesToTry) {
             const service = this.services[serviceName];
             if (!service) continue;
 
             try {
                 console.log(`尝试使用 ${service.name} 查询IP地理位置...`);
-                
+
                 const url = this._getServiceUrl(service, ip, settings, false);
                 const result = await this._queryService(url, service, settings.ipLookupTimeout);
-                
+
                 console.log(`成功从 ${service.name} 获取到地理位置信息:`, result);
-                
+
                 return {
                     success: true,
                     data: {
@@ -206,7 +207,7 @@ class IpLocationService {
                 continue;
             }
         }
-        
+
         throw new Error('所有IP地理位置服务都不可用');
     }
 
@@ -220,7 +221,7 @@ class IpLocationService {
         if (settings.ipLookupService === 'auto') {
             // 自动模式：按优先级尝试所有可用服务
             let servicesToTry = ['ip-api', 'ipapi'];
-            
+
             // 如果有API密钥，添加付费服务
             if (settings.ip2locationApiKey) {
                 servicesToTry.unshift('ip2location'); // 优先使用付费服务
@@ -230,7 +231,7 @@ class IpLocationService {
             } else {
                 servicesToTry.push('ipinfo'); // 免费版本
             }
-            
+
             return servicesToTry;
         } else {
             // 指定服务模式
@@ -238,12 +239,12 @@ class IpLocationService {
             if (!selectedService) {
                 throw new Error('不支持的IP查询服务');
             }
-            
+
             // 检查是否需要API密钥
             if (selectedService.requiresKey && !settings.ip2locationApiKey) {
                 throw new Error('IP2Location服务需要API密钥');
             }
-            
+
             return [settings.ipLookupService];
         }
     }
@@ -298,23 +299,23 @@ class IpLocationService {
             };
 
             const protocol = urlObj.protocol === 'https:' ? https : http;
-            
+
             const req = protocol.request(options, (res) => {
                 let data = '';
-                
+
                 res.on('data', (chunk) => {
                     data += chunk;
                 });
-                
+
                 res.on('end', () => {
                     try {
                         const result = service.parseResponse(data);
                         resolve(result);
                     } catch (error) {
-                        ErrorHandler.logError(error, 'IP_SERVICE_PARSE_RESPONSE', { 
-                            service: service.name, 
+                        ErrorHandler.logError(error, 'IP_SERVICE_PARSE_RESPONSE', {
+                            service: service.name,
                             url,
-                            responseData: data.substring(0, 200) 
+                            responseData: data.substring(0, 200)
                         });
                         reject(new Error('解析响应失败: ' + error.message));
                     }
@@ -322,9 +323,9 @@ class IpLocationService {
             });
 
             req.on('error', (error) => {
-                ErrorHandler.logError(error, 'IP_SERVICE_REQUEST', { 
-                    service: service.name, 
-                    url 
+                ErrorHandler.logError(error, 'IP_SERVICE_REQUEST', {
+                    service: service.name,
+                    url
                 });
                 reject(new Error('请求失败: ' + error.message));
             });
@@ -332,10 +333,10 @@ class IpLocationService {
             req.on('timeout', () => {
                 req.destroy();
                 const timeoutError = new Error('请求超时');
-                ErrorHandler.logError(timeoutError, 'IP_SERVICE_TIMEOUT', { 
-                    service: service.name, 
-                    url, 
-                    timeout 
+                ErrorHandler.logError(timeoutError, 'IP_SERVICE_TIMEOUT', {
+                    service: service.name,
+                    url,
+                    timeout
                 });
                 reject(timeoutError);
             });
@@ -376,4 +377,16 @@ class IpLocationService {
     }
 }
 
-module.exports = new IpLocationService(); 
+module.exports = new IpLocationService();
+// 路由结果保留真实跳点；位置查询失败只影响注释，不把路由诊断判为失败。
+module.exports.batchQueryIPLocations = async (hops) => {
+    const service = module.exports;
+    await Promise.all(hops.map(async hop => {
+        if (!hop.ip || hop.ip === '*' || /^(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(hop.ip)) return;
+        try {
+            const value = await service.lookup(hop.ip, {ipLookupService:'ipapi',ipLookupTimeout:3000});
+            if (value.success) hop.location = [value.data.country,value.data.region,value.data.city,value.data.isp].filter(Boolean).join(' · ');
+        } catch { hop.location = ''; }
+    }));
+    return hops;
+};

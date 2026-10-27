@@ -66,7 +66,7 @@
       @add-to-favorites="addToFavorites"
     >
       <template #status="{ row }">
-        <el-tag 
+        <el-tag
           :type="getStatusType(row.status)"
           size="small"
         >
@@ -131,9 +131,9 @@ const showBatchAdd = ref(false)
 const tableColumns = [
   { prop: 'url', label: $t('table.url'), width: 300 },
   { prop: 'status', label: $t('table.status'), width: 100, slot: 'status' },
-  { 
-    prop: 'responseTime', 
-    label: $t('table.responseTime'), 
+  {
+    prop: 'responseTime',
+    label: $t('table.responseTime'),
     width: 120,
     formatter: (value) => `${value} ms`
   },
@@ -154,7 +154,7 @@ const startTest = async () => {
   const validUrls = urlList.value
     .map(item => item.url.trim())
     .filter(url => url)
-  
+
   if (validUrls.length === 0) {
     ElMessage.warning($t('messages.pleaseAddUrl'))
     return
@@ -162,22 +162,23 @@ const startTest = async () => {
 
   loading.value = true
   results.value = []
-  
+
   try {
     const tempResults = []
 
     for (const url of validUrls) {
       try {
         console.log('正在测试URL:', url)
-        
+
         // 使用 IPC 调用主进程执行 HTTP 测试
         const result = await window.electronAPI.invoke('http-test', {
           url,
           method: form.method,
           timeout: form.timeout * 1000,
+          retries: form.retries,
           headers: {}
         })
-        
+
         tempResults.push({
           url: result.url,
           status: result.status,
@@ -200,6 +201,7 @@ const startTest = async () => {
     }
 
     results.value = tempResults
+    storageService.addHistory({type:'http',results:tempResults,options:{method:form.method,timeout:form.timeout,retries:form.retries}})
     console.log('测试完成，结果:', results.value)
   } catch (error) {
     console.error('测试过程出错:', error)
@@ -221,7 +223,7 @@ const addToFavorites = (url) => {
       address: url,
       note: $t('messages.addedFromPage', { page: $t('pages.httpTest') })
     })
-    
+
     if (success) {
       ElMessage.success($t('messages.addToFavorites'))
     } else {
@@ -256,4 +258,4 @@ const handleBatchAdd = (urls) => {
 
 <style scoped>
 /* 页面特定样式可以在这里添加 */
-</style> 
+</style>

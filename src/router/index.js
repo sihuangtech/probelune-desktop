@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
+  {path:'/dashboard',name:'dashboard',component:()=>import('../views/DashboardView.vue')},
   {
     path: '/',
     name: 'ip-lookup',
@@ -48,4 +49,4 @@ const router = createRouter({
   routes
 })
 
-export default router 
+export default router

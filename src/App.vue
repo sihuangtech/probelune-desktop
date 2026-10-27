@@ -2,6 +2,7 @@
   <el-container class="app-container">
     <el-header>
       <el-menu mode="horizontal" router>
+        <el-menu-item index="/dashboard"><el-icon><Monitor /></el-icon>Probelune</el-menu-item>
         <el-menu-item index="/">
           <el-icon><Search /></el-icon>
           {{ $t('nav.ipLookup') }}
@@ -36,7 +37,7 @@
         </el-menu-item>
       </el-menu>
     </el-header>
-    
+
     <el-main>
       <router-view></router-view>
     </el-main>
@@ -79,4 +80,4 @@ html.dark .el-main {
 html.dark .el-header {
   border-bottom-color: #4c4d4f;
 }
-</style> 
+</style>

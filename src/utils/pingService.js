@@ -3,11 +3,12 @@
  * 提供跨平台的Ping测试功能
  */
 
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
+const { host: validateHost, integer } = require('./safeCommand');
 const util = require('util');
 const ErrorHandler = require('./errorHandler');
 
-const execPromise = util.promisify(exec);
+const execPromise = util.promisify(execFile);
 
 class PingService {
     constructor() {
@@ -21,18 +22,18 @@ class PingService {
      */
     async test(options) {
         const { host, count = 4, size = 32, timeout = 3 } = options;
-        
+
         try {
             // 构建平台特定的ping命令
-            const cmd = this._buildPingCommand(host, count, size, timeout);
-            
-            console.log('执行ping命令:', cmd);
-            const { stdout } = await execPromise(cmd);
-            console.log('ping输出:', stdout);
-            
+            validateHost(host); integer(count,1,20); integer(size,16,1400); integer(timeout,1,30);
+            const args = this._buildPingCommand(host, count, size, timeout);
+            let stdout;
+            try { ({stdout}=await execPromise('ping',args,{timeout:(count*timeout+2)*1000,maxBuffer:65536,env:{...process.env,LC_ALL:'C'}})); }
+            catch(error) { if(error.stdout && /packet loss|%.*loss|丢失/i.test(error.stdout))stdout=error.stdout;else throw error; }
+
             // 解析输出结果
             const result = this._parseOutput(stdout, host);
-            
+
             return result;
         } catch (error) {
             ErrorHandler.logError(error, 'PING_TEST', { host, count, size, timeout });
@@ -48,7 +49,7 @@ class PingService {
      */
     async batchTest(hosts, options = {}) {
         const results = [];
-        
+
         for (const host of hosts) {
             try {
                 const result = await this.test({ ...options, host });
@@ -67,7 +68,7 @@ class PingService {
                 });
             }
         }
-        
+
         return results;
     }
 
@@ -82,12 +83,12 @@ class PingService {
         const { interval = 1000, maxCount = 0 } = options; // maxCount为0表示无限制
         let count = 0;
         let isRunning = true;
-        
+
         const controller = {
             stop: () => { isRunning = false; },
             isRunning: () => isRunning
         };
-        
+
         const runTest = async () => {
             while (isRunning && (maxCount === 0 || count < maxCount)) {
                 try {
@@ -100,20 +101,20 @@ class PingService {
                         callback(error, { sequence: count + 1, host });
                     }
                 }
-                
+
                 count++;
-                
+
                 if (isRunning && (maxCount === 0 || count < maxCount)) {
                     await new Promise(resolve => setTimeout(resolve, interval));
                 }
             }
         };
-        
+
         // 异步执行测试
         runTest().catch(error => {
             ErrorHandler.logError(error, 'PING_CONTINUOUS_TEST', { host, options });
         });
-        
+
         return controller;
     }
 
@@ -129,11 +130,11 @@ class PingService {
     _buildPingCommand(host, count, size, timeout) {
         if (this.platform === 'win32') {
             // Windows ping命令
-            return `ping -n ${count} -l ${size} -w ${timeout * 1000} ${host}`;
+            return ['-n',String(count),'-l',String(size),'-w',String(timeout*1000),host];
         } else {
             // macOS/Linux ping命令
             // 使用简单的ping命令以确保显示每个回复的详细信息（包括TTL）
-            return `ping -c ${count} ${host}`;
+            return ['-c',String(count),'-s',String(size),'-W',String(this.platform==='darwin'?timeout*1000:timeout),host];
         }
     }
 
@@ -151,22 +152,22 @@ class PingService {
             min: 0,
             avg: 0,
             max: 0,
-            loss: 0,
+            loss: 100,
             ttl: 0
         };
-        
+
         // 从输出中提取IP地址
         const ipMatch = stdout.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/);
         if (ipMatch) {
             result.ip = ipMatch[0];
         }
-        
+
         if (this.platform === 'win32') {
             this._parseWindowsOutput(stdout, result);
         } else {
             this._parseUnixOutput(stdout, result);
         }
-        
+
         return result;
     }
 
@@ -180,12 +181,12 @@ class PingService {
         // Windows 输出解析 - 使用更通用的正则表达式处理编码问题
         // 首先尝试匹配完整的统计行格式
         let statsMatch = stdout.match(/= (\d+)ms.*?= (\d+)ms.*?= (\d+)ms/);
-        
+
         // 如果没有匹配到，尝试更宽松的匹配
         if (!statsMatch) {
             // 分别匹配最短、最长、平均值
             const allMatches = stdout.match(/(\d+)ms/g);
-            
+
             if (allMatches && allMatches.length >= 3) {
                 // 从所有匹配的时间值中提取统计信息
                 const times = allMatches.map(match => parseInt(match.replace('ms', '')));
@@ -202,13 +203,13 @@ class PingService {
             result.max = parseInt(statsMatch[2]);
             result.avg = parseInt(statsMatch[3]);
         }
-        
+
         // 匹配丢包率
         const lossMatch = stdout.match(/(\d+)%/);
         if (lossMatch) {
             result.loss = parseInt(lossMatch[1]);
         }
-        
+
         // 匹配TTL值
         const ttlMatch = stdout.match(/TTL=(\d+)/i);
         if (ttlMatch) {
@@ -226,7 +227,7 @@ class PingService {
         // 改进的macOS/Linux输出解析
         const statsMatch = stdout.match(/min\/avg\/max\/(?:mdev|stddev)\s*=\s*([\d.]+)\/([\d.]+)\/([\d.]+)/);
         const lossMatch = stdout.match(/(\d+(?:\.\d+)?)%\s+packet\s+loss/);
-        
+
         if (statsMatch) {
             result.min = parseFloat(statsMatch[1]);
             result.avg = parseFloat(statsMatch[2]);
@@ -235,7 +236,7 @@ class PingService {
         if (lossMatch) {
             result.loss = parseFloat(lossMatch[1]);
         }
-        
+
         // 从每个ping回复中提取TTL值（如果有的话）
         const ttlMatches = stdout.match(/ttl=(\d+)/gi);
         if (ttlMatches && ttlMatches.length > 0) {
@@ -296,4 +297,4 @@ class PingService {
     }
 }
 
-module.exports = new PingService(); 
+module.exports = new PingService();

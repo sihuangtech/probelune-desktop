@@ -6,29 +6,29 @@ Multi-site Operations Monitoring Tool（多站点运维检测工具）是一款�
 
 **主要功能：**
 
-*   **IP/域名地理位置查询：** 批量查询 IP 地址或域名的详细地理位置信息（国家、城市、ISP）。
-*   **Ping 测试：** 精准测量网络延迟和丢包率。
-*   **HTTP/HTTPS 测试：** 检查网站可用性，获取状态码和响应时间。
-*   **DNS 测试：** 查询不同类型的 DNS 记录。
-*   **MTR 测试：** 分析数据包路径上各节点的性能。
-*   **路由追踪：** 可视化数据包经过的网络路径。
-*   **收藏夹：** 方便管理常用测试目标。
-*   **数据导出：** 将测试结果导出。
-*   **跨平台支持：** 在 Windows, macOS, Linux 上无缝运行。
-*   **用户友好界面：** 直观的操作界面，支持简体中文和英文。
+* **IP/域名地理位置查询：** 批量查询 IP 地址或域名的详细地理位置信息（国家、城市、ISP）。
+* **Ping 测试：** 精准测量网络延迟和丢包率。
+* **HTTP/HTTPS 测试：** 检查网站可用性，获取状态码和响应时间。
+* **DNS 测试：** 查询不同类型的 DNS 记录。
+* **MTR 测试：** 分析数据包路径上各节点的性能。
+* **路由追踪：** 可视化数据包经过的网络路径。
+* **收藏夹：** 方便管理常用测试目标。
+* **数据导出：** 将测试结果导出。
+* **跨平台支持：** 在 Windows, macOS, Linux 上无缝运行。
+* **用户友好界面：** 直观的操作界面，支持简体中文和英文。
 
 ## 下载与安装
 
 请根据你的操作系统和架构下载对应版本：
 
-*   **Windows (x64):** [下载链接] (请替换为实际下载链接)
-*   **Windows (ia32):** [下载链接] (请替换为实际下载链接)
-*   **Windows (arm64):** [下载链接] (请替换为实际下载链接)
-*   **macOS (Intel / x64):** [下载链接] (请替换为实际下载链接)
-*   **macOS (Apple Silicon / arm64):** [下载链接] (请替换为实际下载链接)
-*   **macOS (通用 / Universal):** [下载链接] (请替换为实际下载链接)
-*   **Linux (x64):** [下载链接] (请替换为实际下载链接)
-*   **Linux (arm64):** [下载链接] (请替换为实际下载链接)
+* **Windows (x64):** [下载链接] (请替换为实际下载链接)
+* **Windows (ia32):** [下载链接] (请替换为实际下载链接)
+* **Windows (arm64):** [下载链接] (请替换为实际下载链接)
+* **macOS (Intel / x64):** [下载链接] (请替换为实际下载链接)
+* **macOS (Apple Silicon / arm64):** [下载链接] (请替换为实际下载链接)
+* **macOS (通用 / Universal):** [下载链接] (请替换为实际下载链接)
+* **Linux (x64):** [下载链接] (请替换为实际下载链接)
+* **Linux (arm64):** [下载链接] (请替换为实际下载链接)
 
 ## 使用方法
 
@@ -42,9 +42,9 @@ Multi-site Operations Monitoring Tool（多站点运维检测工具）是一款�
 
 **版本 1.0.0 (初始版本):**
 
-*   主要功能：IP/域名查询、Ping、HTTP、DNS、MTR、路由追踪、收藏夹。
-*   支持 Windows, macOS, Linux 平台。
-*   用户友好界面。
+* 主要功能：IP/域名查询、Ping、HTTP、DNS、MTR、路由追踪、收藏夹。
+* 支持 Windows, macOS, Linux 平台。
+* 用户友好界面。
 
 [请在此处添加后续版本更新内容]
 
@@ -52,7 +52,7 @@ Multi-site Operations Monitoring Tool（多站点运维检测工具）是一款�
 
 如果您在使用过程中遇到任何问题或有任何建议，请通过以下方式联系我们或提交反馈：
 
-*   **联系邮箱：** developer@skstudio.cn
-*   **反馈页面/链接：** [此处可以填写你的网站反馈页面链接，或者引导用户通过邮件联系] (例如: https://www.skstudio.cn/multisitetool/feedback 或 邮件联系 developer@skstudio.cn)
+* **联系邮箱：** <developer@skstudio.cn>
+* **反馈页面/链接：** [此处可以填写你的网站反馈页面链接，或者引导用户通过邮件联系] (例如: <https://www.skstudio.cn/multisitetool/feedback> 或 邮件联系 <developer@skstudio.cn>)
 
-感谢您使用 Multi-site Operations Monitoring Tool！ 
+感谢您使用 Multi-site Operations Monitoring Tool！

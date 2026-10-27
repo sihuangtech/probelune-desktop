@@ -1,8 +1,8 @@
 // 应用信息配置
 export const appInfo = {
   name: {
-    'zh-CN': '多站点运维检测工具', // 应用名称（中文）
-    'en-US': 'Multi-site Operations Monitoring Tool' // 应用名称（英文）
+    'zh-CN': '巡汐 Probelune', // 应用名称（中文）
+    'en-US': 'Probelune' // 应用名称（英文）
   },
   // 直接使用全局注入的版本和构建日期
   version: typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '未知版本',
@@ -32,4 +32,4 @@ export const getBuildInfo = (language = 'zh-CN') => {
     version: appInfo.version,
     buildDate: appInfo.buildDate
   }
-} 
+}

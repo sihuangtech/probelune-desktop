@@ -1,8 +1,8 @@
 {
-  "name": "multi-site-monitor",
-  "version": "1.5.0",
-  "description": "Multi-site Operations Monitoring Tool - Provides IP lookup, Ping, HTTP, DNS, MTR, Traceroute and other network testing and operations monitoring features",
-  "homepage": "https://www.skstudio.cn/multisitetool",
+  "name": "probelune-desktop",
+  "version": "1.6.0",
+  "description": "Probelune desktop diagnostics and self-hosted multi-location monitoring client",
+  "homepage": "https://github.com/sihuangtech/probelune-desktop",
   "author": {
     "name": "Snake Konginchrist",
     "email": "developer@skstudio.cn"
@@ -38,18 +38,18 @@
   },
   "private": true,
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.9",
-    "concurrently": "^10.0.5",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "concurrently": "^10.0.6",
     "cross-env": "^10.1.0",
-    "electron": "^44.4.3",
-    "electron-builder": "^26.15.3",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
     "rimraf": "^6.1.3",
-    "vite": "^8.3.0",
-    "wait-on": "^9.1.0"
+    "vite": "^8.3.5",
+    "wait-on": "^9.5.1"
   },
   "build": {
     "appId": "cn.skstudio.multisitetool",
-    "productName": "Multi-site Monitor",
+    "productName": "Probelune",
     "icon": "assets/icon",
     "directories": {
       "output": "release"
@@ -91,7 +91,7 @@
       "allowToChangeInstallationDirectory": true,
       "perMachine": false,
       "allowElevation": true,
-      "uninstallDisplayName": "MultiSiteTool",
+      "uninstallDisplayName": "Probelune",
       "deleteAppDataOnUninstall": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
@@ -104,25 +104,22 @@
       ],
       "category": "Network",
       "artifactName": "${productName}-${version}-linux-${arch}.${ext}"
-    },
-    "publish": {
-      "provider": "generic",
-      "url": "https://www.skstudio.cn/multisitetool/update"
     }
   },
   "allowScripts": {
-    "electron@44.4.3": true,
     "vue-demi": true,
     "fsevents@2.3.3": true,
-    "electron-winstaller@5.4.0": true
+    "electron-winstaller@5.4.0": true,
+    "electron@45.0.0": true
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
-    "axios": "^1.20.0",
-    "dotenv": "^18.0.2",
-    "electron-store": "^11.0.2",
-    "element-plus": "^2.14.6",
-    "vue": "^3.5.43",
-    "vue-router": "^5.3.1"
-  }
+    "axios": "^1.21.0",
+    "dotenv": "^18.0.9",
+    "electron-store": "^12.0.0",
+    "element-plus": "^2.14.7",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0"
+  },
+  "license": "GPL-3.0-or-later"
 }
