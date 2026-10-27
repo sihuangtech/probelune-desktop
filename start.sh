@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# MultiSite Latency Tool 启动脚本
+# Probelune 桌面端启动脚本
 # 用于快速启动开发环境
 
-echo "🚀 MultiSite Latency Tool 启动脚本"
+echo "🚀 Probelune 桌面端启动脚本"
 echo "=================================="
 
 # 检查Node.js是否安装
 if ! command -v node &> /dev/null; then
-    echo "❌ 错误: 未找到Node.js，请先安装Node.js 16.0或更高版本"
+    echo "❌ 错误: 未找到Node.js，请先安装Node.js 26或更高版本"
     echo "   下载地址: https://nodejs.org/"
     exit 1
 fi
@@ -27,8 +27,7 @@ if [ ! -d "node_modules" ]; then
     echo "📦 正在安装依赖..."
     npm install
     if [ $? -ne 0 ]; then
-        echo "❌ 依赖安装失败，请检查网络连接或尝试使用国内镜像"
-        echo "   使用淘宝镜像: npm config set registry https://registry.npmmirror.com/"
+        echo "❌ 依赖安装失败，请检查到 https://registry.npmjs.org/ 的网络连接"
         exit 1
     fi
     echo "✅ 依赖安装完成"
@@ -60,4 +59,4 @@ echo "   - 按 Ctrl+C 停止服务"
 echo ""
 
 # 启动开发服务器
-npm run electron:dev 
+npm run electron:dev

@@ -2,6 +2,8 @@
 
 ## 1.6.0 — 2026-10-28
 
+- Remove the superseded English README; add star history and maintainer contacts to the current bilingual documentation.
+- Regenerate the npm lockfile against the official registry and remove mirror recommendations from startup scripts.
 - Rename product and repository to Probelune Desktop; retain original Git history and user-data compatibility.
 - Add dashboard connections, remote monitoring, local/remote comparisons and reviewed favorite imports.
 - Replace shell-string execution with validated argument arrays, repair DNS isolation and missing route annotation calls, and remove automatic HTTP downgrade / global TLS bypasses.

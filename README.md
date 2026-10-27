@@ -48,3 +48,14 @@ Dashboard tokens stay in the main process. OS `safeStorage` encrypts saved conne
 [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Acceptance](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
 
 GPL-3.0-or-later; original authorship and license notices are retained. [LICENSE](LICENSE).
+
+
+## Star History
+
+[![Star history](https://api.star-history.com/svg?repos=sihuangtech/probelune-desktop&type=Date)](https://star-history.com/#sihuangtech/probelune-desktop&Date)
+
+## Contact
+
+- Developer: [Snake Konginchrist](https://github.com/Snake-Konginchrist)
+- Email: [developer@skstudio.cn](mailto:developer@skstudio.cn)
+- Feedback: [GitHub Issues](https://github.com/sihuangtech/probelune-desktop/issues)

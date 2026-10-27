@@ -48,3 +48,14 @@ npm run dist:linux
 [更新记录](CHANGELOG.md) · [贡献](CONTRIBUTING.md) · [安全](SECURITY.md) · [验收](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
 
 采用 [GPL-3.0-or-later](LICENSE)，保留原作者与版权声明。
+
+
+## 星标历史
+
+[![星标历史](https://api.star-history.com/svg?repos=sihuangtech/probelune-desktop&type=Date)](https://star-history.com/#sihuangtech/probelune-desktop&Date)
+
+## 联系开发者
+
+- 开发者: [Snake Konginchrist](https://github.com/Snake-Konginchrist)
+- 邮箱: [developer@skstudio.cn](mailto:developer@skstudio.cn)
+- 问题反馈: [GitHub Issues](https://github.com/sihuangtech/probelune-desktop/issues)
