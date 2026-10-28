@@ -26,14 +26,14 @@
 
 **内容示例：**
 
-Stop guessing why your network is slow! 😩 Check out the new Multi-Site Network Latency Testing Tool by [你的工作室名称，如果英文有的话，或继续用彩旗工作室]! 
+Stop guessing why your network is slow! 😩 Check out the new Multi-Site Network Latency Testing Tool by [你的工作室名称，如果英文有的话，或继续用彩旗工作室]!
 
-Test Ping, HTTP, DNS, MTR, Traceroute & more across multiple targets simultaneously. 🔥 Available for Windows, macOS, and Linux! 
+Test Ping, HTTP, DNS, MTR, Traceroute & more across multiple targets simultaneously. 🔥 Available for Windows, macOS, and Linux!
 
 Watch the demo video: 👇
 [你的视频链接]
 
-Download now: 
+Download now:
 [彩旗工作室官网下载页面链接]
 
 #NetworkTools #LatencyTest #Ping #Traceroute #NetworkDiagnostic #CrossPlatform #DeveloperTools #彩旗工作室
@@ -42,6 +42,6 @@ Download now:
 
 **使用提示：**
 
-*   请将 `[你的视频链接]` 和 `[彩旗工作室官网下载页面链接]` 替换为你实际的链接。
-*   可以根据需要调整点赞/播放量开源目标等内容，使其与视频一致。
-*   微博内容可以适当增加一些表情符号和更本地化的表达。 
+* 请将 `[你的视频链接]` 和 `[彩旗工作室官网下载页面链接]` 替换为你实际的链接。
+* 可以根据需要调整点赞/播放量开源目标等内容，使其与视频一致。
+* 微博内容可以适当增加一些表情符号和更本地化的表达。

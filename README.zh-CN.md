@@ -49,7 +49,6 @@ npm run dist:linux
 
 采用 [GPL-3.0-or-later](LICENSE)，保留原作者与版权声明。
 
-
 ## 星标历史
 
 [![星标历史](https://api.star-history.com/svg?repos=sihuangtech/probelune-desktop&type=Date)](https://star-history.com/#sihuangtech/probelune-desktop&Date)

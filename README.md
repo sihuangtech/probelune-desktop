@@ -49,7 +49,6 @@ Dashboard tokens stay in the main process. OS `safeStorage` encrypts saved conne
 
 GPL-3.0-or-later; original authorship and license notices are retained. [LICENSE](LICENSE).
 
-
 ## Star History
 
 [![Star history](https://api.star-history.com/svg?repos=sihuangtech/probelune-desktop&type=Date)](https://star-history.com/#sihuangtech/probelune-desktop&Date)
