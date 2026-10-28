@@ -10,8 +10,11 @@ The visible product name is Probelune. `cn.skstudio.multisitetool` and the exist
 - `preload.js`: narrow context-isolated bridge.
 - `src/utils/*Service.js`: local adapters and main-process dashboard transport.
 - `src/services/desktopApi.js`: serializable renderer calls; Vue proxies never cross IPC directly.
+- `src/services/storage.js`: local favorites, settings and history in localStorage; dashboard sessions are managed separately in the main process.
 - `DashboardView.vue` and dashboard components: connections, overview, import and comparisons.
 - Existing local views and stores remain independent of the dashboard.
+
+The Electron entry is `main.js`, its preload is `preload.js`, and the web entry is `src/main.js`. JavaScript under `src/services/`, `src/utils/`, `src/router/` and `src/locales/` implements the running application. The old standalone renderer, unused storage wrapper, old renderer network/IP adapters, unused utility barrel and its unused network configuration module have been removed. Packaging includes only the current entrypoints, web assets and source modules needed by Electron.
 
 HTTP diagnostics are GET/HEAD only, bounded to 1 MiB, validate TLS by default and do not fall back to plaintext. Custom DNS queries create independent resolvers. Ping/MTR/traceroute use validated hosts and argument arrays, with bounded execution. Geographic annotation failures do not erase route evidence. Desktop execution takes the user's local network privileges; it is not the server's remotely delegated node policy.
 

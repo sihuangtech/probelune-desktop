@@ -2,6 +2,7 @@
 
 ## 1.6.0 — 2026-10-28
 
+- Remove six unreachable legacy JavaScript modules and their unused dependencies from the desktop package.
 - Remove the superseded English README; add star history and maintainer contacts to the current bilingual documentation.
 - Regenerate the npm lockfile against the official registry and remove mirror recommendations from startup scripts.
 - Rename product and repository to Probelune Desktop; retain original Git history and user-data compatibility.

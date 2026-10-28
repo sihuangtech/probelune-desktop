@@ -1,5 +1,7 @@
 # 软件名称：Multi-site Operations Monitoring Tool (多站点运维检测工具)
 
+> 旧版软件文档。当前程序结构见 [开发说明](PROBELUNE.md)。
+
 ## 软件版本：1.0.0
 
 ## 完成日期：2025年05月30日
