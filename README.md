@@ -45,7 +45,7 @@ This is the renamed repository **sihuangtech/probelune-desktop**, retaining the 
 
 Dashboard tokens stay in the main process. OS `safeStorage` encrypts saved connections; where secure encryption is unavailable the app uses memory-only sessions. Disconnect attempts remote logout and removes the local connection. An offline failure may require revocation through the dashboard later.
 
-[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Acceptance](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
+[Releases](https://github.com/sihuangtech/probelune-desktop/releases) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Acceptance](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
 
 GPL-3.0-or-later; original authorship and license notices are retained. [LICENSE](LICENSE).
 

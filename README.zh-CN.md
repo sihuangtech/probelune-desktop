@@ -45,7 +45,7 @@ npm run dist:linux
 
 面板令牌只在主进程中使用；支持时通过 OS safeStorage 加密。没有可靠加密后端的环境仅保存在内存。断开连接尝试远程退出并清除本地连接；面板不可达时可能仍需从网页撤销会话。
 
-[更新记录](CHANGELOG.md) · [贡献](CONTRIBUTING.md) · [安全](SECURITY.md) · [验收](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
+[发布记录](https://github.com/sihuangtech/probelune-desktop/releases) · [贡献](CONTRIBUTING.md) · [安全](SECURITY.md) · [验收](https://github.com/sihuangtech/probelune/blob/main/docs/acceptance.md)
 
 采用 [GPL-3.0-or-later](LICENSE)，保留原作者与版权声明。
 

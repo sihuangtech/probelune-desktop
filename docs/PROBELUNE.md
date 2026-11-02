@@ -4,6 +4,10 @@ This repository preserves the former `multisiteprobe-desktop-community` history.
 
 The visible product name is Probelune. `cn.skstudio.multisitetool` and the existing `multi-site-monitor` user-data path are retained deliberately. Do not delete that directory to upgrade. Existing local favorites remain local; import is an explicit preview followed by monitor creation. Existing remote targets are skipped and failures are reported per item.
 
+## Release numbering
+
+The Probelune release line starts at `v0.1.0` across the six repositories. The desktop package version is `0.1.0`; the previous `v1.6.0` tag and original project history remain available for historical reference. Release notes are maintained in [GitHub Releases](https://github.com/sihuangtech/probelune-desktop/releases). Existing application IDs and user-data paths are retained.
+
 ## Module boundaries
 
 - `main.js`: window lifecycle, navigation permissions and trusted IPC registration.

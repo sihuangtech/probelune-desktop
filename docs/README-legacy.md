@@ -272,7 +272,7 @@ MultiSiteLatencyTool/
 
 ## 📄 许可证
 
-本项目基于 [GPL-3.0 License](LICENSE) 开源协议。
+本项目基于 [GPL-3.0 License](../LICENSE) 开源协议。
 
 ## 🙏 致谢
 

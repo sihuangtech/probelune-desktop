@@ -119,3 +119,8 @@ userData/
 # Ignore separated sub-projects
 multisiteprobe-ios/
 multisiteprobe-android/
+
+# Release notes are maintained on GitHub Releases.
+CHANGELOG*
+Changelog*
+changelog*
