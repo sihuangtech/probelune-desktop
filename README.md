@@ -4,6 +4,10 @@
 
 **Probelune (巡汐)** desktop diagnostics, built with Electron and Vue. Use local IP lookup, HTTP, Ping, DNS, MTR and traceroute without a server, or connect to your dashboard to compare this computer with remote probe locations.
 
+Availability history supports 15-minute, hourly and custom cell durations. Missing samples remain unknown; coverage is displayed separately from availability. Diagnostic runs remain grouped across nodes.
+
+Local and remote comparison supports HTTP, TCP, UDP, ICMP and DNS. UDP accepts text/hex payloads and response-content assertions; a reply is required for success.
+
 ## Features
 
 - Independent local diagnostic tools, saved targets, history and English/Chinese UI.

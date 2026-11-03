@@ -6,6 +6,7 @@ import i18n from "../services/i18nService";
 import DashboardConnection from "../components/DashboardConnection.vue";
 import FavoriteImport from "../components/FavoriteImport.vue";
 import RemoteDiagnostics from "../components/RemoteDiagnostics.vue";
+import AvailabilityHistory from "../components/AvailabilityHistory.vue";
 const tr = (en, zh) => (i18n.currentLanguage.value.startsWith("zh") ? zh : en);
 const sessions = ref([]),
   selected = ref(""),
@@ -158,6 +159,7 @@ function openDashboard() {
           ></el-table
         >
       </section>
+      <AvailabilityHistory :key="session.id" :session="session" :monitors="data.monitors" />
       <RemoteDiagnostics
         v-if="canEdit"
         :key="session.id"

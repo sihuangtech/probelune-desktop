@@ -46,7 +46,7 @@ function createWindow() {
     height: 840,
     minWidth: 850,
     minHeight: 600,
-    title: "Probelune · 巡汐",
+    title: "Probelune - 巡汐",
     icon: path.join(__dirname, "assets/icon.png"),
     webPreferences: {
       nodeIntegration: false,
@@ -90,6 +90,7 @@ const channels = {
   "dns-test": handlers.handleDnsTest,
   "ping-test": handlers.handlePingTest,
   "http-test": handlers.handleHttpTest,
+  "network-test": handlers.handleNetworkTest,
   "ip2location-lookup": handlers.handleIp2LocationLookup,
   "check-mtr-status": handlers.handleCheckMtrStatus,
   "check-traceroute-status": handlers.handleCheckTracerouteStatus,

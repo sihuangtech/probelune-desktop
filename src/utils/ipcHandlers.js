@@ -119,5 +119,6 @@ module.exports = {
     handleCheckTracerouteStatus,
     handleMtrTest,
     handleTracerouteTest,
-    handleHttpTest
+    handleHttpTest,
+    handleNetworkTest: (_event, options) => networkTests.executeTransportTest(options)
 };

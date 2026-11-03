@@ -1,11 +1,12 @@
 <script setup>
 import { invoke } from "../services/desktopApi";
-import { ref, onUnmounted } from "vue";
+import { ref, watch, onUnmounted } from "vue";
 import i18n from "../services/i18nService";
 const props = defineProps(["session", "nodes"]);
 const tr = (en, zh) => (i18n.currentLanguage.value.startsWith("zh") ? zh : en);
 const type = ref("http"),
   target = ref(""),
+  port = ref(443), payload = ref(""), encoding = ref("text"), expected = ref(""),
   nodeIds = ref([]),
   local = ref(true),
   results = ref([]),
@@ -14,6 +15,7 @@ const type = ref("http"),
   error = ref("");
 const call = (path, method = "GET", body) =>
   invoke("dashboard", "request", { id: props.session.id, path, method, body });
+watch(type, () => { nodeIds.value = nodeIds.value.filter(id => (props.nodes.find(n => n.id === id)?.info?.capabilities || []).includes(type.value)); });
 let timer;
 onUnmounted(() => clearInterval(timer));
 async function run() {
@@ -25,6 +27,7 @@ async function run() {
   try {
     const check = {
       type: type.value,
+      port: port.value, udp_payload: payload.value, udp_encoding: encoding.value, udp_expected: expected.value,
       target: target.value,
       timeout: 10,
       count: 4,
@@ -58,13 +61,14 @@ async function run() {
             size: 32,
             timeout: 3,
           });
+        else if (["tcp", "udp"].includes(type.value)) value = await invoke("network-test", { protocol: type.value, host: target.value, port: port.value, payload: payload.value, encoding: encoding.value, expected: expected.value, timeout: 10000 });
         else value = await invoke("dns-test", target.value, "A", "default");
         const success =
           type.value === "http"
             ? value.status === 200
             : type.value === "ping"
               ? value.loss === 0
-              : value.success;
+              : ["tcp", "udp"].includes(type.value) ? value.status === "success" : value.success;
         results.value.push({
           location: tr("This computer", "本机"),
           status: success ? "success" : "failure",
@@ -87,7 +91,8 @@ async function run() {
 }
 async function poll() {
   try {
-    const items = await call("/diagnostics");
+    const batch = jobs.value[0]?.batch_id;
+    const items = await call("/diagnostics" + (batch ? "?batch_id=" + encodeURIComponent(batch) : ""));
     const own = items.filter((i) => jobs.value.some((j) => j.id === i.job.id));
     results.value = results.value.filter((r) => !r.jobId);
     for (const i of own)
@@ -154,7 +159,7 @@ function exportResults() {
     <el-form inline @submit.prevent="run"
       ><el-form-item
         ><el-select v-model="type" style="width: 110px"
-          ><el-option value="http" label="HTTP" /><el-option
+          ><el-option value="http" label="HTTP" /><el-option value="tcp" label="TCP" /><el-option value="udp" label="UDP" /><el-option
             value="ping"
             label="ICMP" /><el-option
             value="dns"
@@ -164,7 +169,9 @@ function exportResults() {
           v-model="target"
           :placeholder="type === 'http' ? 'https://example.com' : 'example.com'"
           style="width: 280px" /></el-form-item
-      ><el-form-item
+      ><el-form-item v-if="['tcp','udp'].includes(type)" :label="tr('Port', '端口')"><el-input-number v-model="port" :min="1" :max="65535" /></el-form-item>
+      <template v-if="type === 'udp'"><el-form-item><el-select v-model="encoding" style="width:100px"><el-option value="text" label="UTF-8" /><el-option value="hex" label="HEX" /></el-select></el-form-item><el-form-item :label="tr('Payload','请求内容')"><el-input v-model="payload" maxlength="4200" /></el-form-item><el-form-item :label="tr('Response contains','响应包含')"><el-input v-model="expected" maxlength="12288" /></el-form-item></template>
+      <el-form-item
         ><el-select
           v-model="nodeIds"
           multiple
@@ -174,7 +181,7 @@ function exportResults() {
             v-for="n in nodes.filter((n) => n.enabled && !n.revoked)"
             :key="n.id"
             :value="n.id"
-            :label="n.name" /></el-select></el-form-item
+            :label="n.name" :disabled="!(n.info?.capabilities || []).includes(type)" /></el-select></el-form-item
       ><el-form-item
         ><el-checkbox v-model="local">{{
           tr("This computer", "本机")
