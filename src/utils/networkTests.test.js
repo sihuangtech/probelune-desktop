@@ -14,7 +14,7 @@ test('TCP and UDP use validated, bounded local transport checks', async () => {
   udp.bind(0, '127.0.0.1');
   await once(udp, 'listening');
   try {
-    assert.equal((await executeTransportTest({ protocol:'tcp', host:'127.0.0.1', port:tcp.address().port })).status, 'success');
+    assert.equal((await executeTransportTest({ protocol:'tcp', host:'127.0.0.1', port:tcp.address().port, payload:'invalid hex', encoding:'hex' })).status, 'success');
     const options = { protocol:'udp', host:'127.0.0.1', port:udp.address().port, payload:'1234', encoding:'hex' };
     assert.equal((await executeTransportTest({ ...options, expected:'ff' })).status, 'success');
     assert.equal((await executeTransportTest({ ...options, expected:'abcd' })).stage, 'assertion');

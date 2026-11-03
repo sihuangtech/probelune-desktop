@@ -32,8 +32,8 @@ function executeTransportTest(options = {}) {
     const timeout = Number(safe.integer(Number(options.timeout ?? 10000), 100, 60000));
     const protocol = options.protocol;
     if (!['tcp', 'udp'].includes(protocol)) throw new Error('Unsupported transport');
-    const payload = datagramBytes(options.payload, options.encoding);
-    const expected = datagramBytes(options.expected, options.encoding);
+    const payload = protocol === 'udp' ? datagramBytes(options.payload, options.encoding) : Buffer.alloc(0);
+    const expected = protocol === 'udp' ? datagramBytes(options.expected, options.encoding) : Buffer.alloc(0);
     if (protocol === 'udp' && (!payload.length || payload.length > 1400 || expected.length > 4096)) throw new Error('Invalid UDP payload or assertion size');
     const started = performance.now();
     return new Promise(resolve => {
