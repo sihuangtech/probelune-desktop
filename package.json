@@ -34,7 +34,8 @@
     "dist:unsigned": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build && electron-builder --publish=never",
     "dist:win:unsigned": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build && electron-builder --win --publish=never",
     "dist:mac:unsigned": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build && electron-builder --mac --publish=never",
-    "dist:linux:unsigned": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build && electron-builder --linux --publish=never"
+    "dist:linux:unsigned": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build && electron-builder --linux --publish=never",
+    "test": "node --test src/utils/*.test.js"
   },
   "private": true,
   "devDependencies": {
