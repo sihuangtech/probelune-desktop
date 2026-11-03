@@ -8,20 +8,20 @@ Electron + Vue 桌面诊断工具。无需服务器即可使用本地 IP 查询�
 
 本地与远程对比支持 HTTP、TCP、UDP、ICMP 和 DNS；UDP 可发送文本或十六进制请求并校验响应，收到实际响应才算成功。
 
-## Probelune 项目仓库
+## 了解 Probelune
 
-Probelune 由六个仓库组成，当前仓库是 **probelune-desktop**。可通过下表了解并访问其他组件。
+桌面客户端提供本地诊断工具，也可以连接面板查看远端的监测结果。
 
-自部署时从网页面板和探测节点开始，移动端与桌面端连接同一个面板，协议仓库为开发者提供共享定义。
+开始自部署时，先配置网页面板和探测节点，再按需要连接手机或桌面客户端。完整架构与部署指南可以在项目总览中找到。
 
-| 仓库 | 用途 |
+| 组件 | 用途 |
 | --- | --- |
-| [probelune](https://github.com/sihuangtech/probelune) | 项目总览、架构与部署指南 |
-| [probelune-dashboard](https://github.com/sihuangtech/probelune-dashboard) | 网页控制台与 Go API 服务端 |
-| [probelune-node](https://github.com/sihuangtech/probelune-node) | 部署在监测网络中的探测执行器 |
-| [probelune-mobile](https://github.com/sihuangtech/probelune-mobile) | Flutter Android 与 iOS 移动客户端 |
-| [probelune-desktop](https://github.com/sihuangtech/probelune-desktop) | Electron 桌面客户端与诊断工具 |
-| [probelune-contracts](https://github.com/sihuangtech/probelune-contracts) | 共享 Go 数据结构、参数校验与接口协议 |
+| [项目总览](https://github.com/sihuangtech/probelune) | 项目总览、架构与部署指南 |
+| [网页面板](https://github.com/sihuangtech/probelune-dashboard) | 网页控制台与 Go API 服务端 |
+| [探测节点](https://github.com/sihuangtech/probelune-node) | 部署在监测网络中的探测执行器 |
+| [移动客户端](https://github.com/sihuangtech/probelune-mobile) | Flutter Android 与 iOS 移动客户端 |
+| [桌面客户端](https://github.com/sihuangtech/probelune-desktop) | Electron 桌面客户端与诊断工具 |
+| [协议与数据定义](https://github.com/sihuangtech/probelune-contracts) | 共享 Go 数据结构、参数校验与接口协议 |
 
 
 ## 功能
